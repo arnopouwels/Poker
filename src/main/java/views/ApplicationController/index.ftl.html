@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>5 Hand Poker login page</title>
+    <link rel="stylesheet" type="text/css" href="/assets/css/login.css">
+
+</head>
+<body>
+
+    <div class="center">
+        <div class="headingWrapper"><h1>Login</h1></div>
+
+        <form id="form" action="/" method="post">
+            <table>
+                <tr><td>Username: </td></tr>
+                <tr><td><input id="username" type="text" name="username"></td></tr>
+                <tr><td>Password: </td></tr>
+                <tr><td><input id="passBox" type="password"  name="password"></td></tr>
+                <tr><td><input id="submitButton" type="submit" value="Submit"></td></tr>
+            </table>
+        </form>
+
+        <div class="buttonLink">
+            <a href="/reg">Register</a>
+        </div>
+
+        <#if (flash.error)??>
+            <div class="alert-danger">
+                Error: ${flash.error}
+            </div>
+        </#if>
+    </div>
+
+
+    <script type="text/javascript"src="/assets/webjars/jquery/2.1.1/jquery.js"></script>
+    <script>
+        var inputBox = $("#username");
+        var passBox = $("#passBox");
+        var centerDiv = $(".center");
+        inputBox.width(centerDiv.width() * 0.7);
+        passBox.width(inputBox.width());
+        $("#form").width(inputBox.width());
+
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,119 @@
+body
+{
+    background: url(/assets/images/poker11.jpg) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    background-color: #cccccc;
+    width:100%;
+    height:100%;
+}
+
+.center
+{
+      margin: auto;
+      position: absolute;
+      top: 0; left: 0; bottom: 0; right: 0;
+      width:60%;
+      height:70%;
+      background: rgba(250, 250, 250, 1);
+      border: 2px solid;
+      border-radius: 25px;
+}
+
+.headingWrapper
+{
+    background: rgba(76,76,76,1);
+    background: -moz-linear-gradient(left, rgba(76,76,76,1) 0%, rgba(89,89,89,1) 12%, rgba(102,102,102,1) 25%, rgba(71,71,71,1) 39%, rgba(44,44,44,1) 50%, rgba(0,0,0,1) 51%, rgba(17,17,17,1) 60%, rgba(43,43,43,1) 76%, rgba(28,28,28,1) 91%, rgba(19,19,19,1) 100%);
+    background: -webkit-gradient(left top, right top, color-stop(0%, rgba(76,76,76,1)), color-stop(12%, rgba(89,89,89,1)), color-stop(25%, rgba(102,102,102,1)), color-stop(39%, rgba(71,71,71,1)), color-stop(50%, rgba(44,44,44,1)), color-stop(51%, rgba(0,0,0,1)), color-stop(60%, rgba(17,17,17,1)), color-stop(76%, rgba(43,43,43,1)), color-stop(91%, rgba(28,28,28,1)), color-stop(100%, rgba(19,19,19,1)));
+    background: -webkit-linear-gradient(left, rgba(76,76,76,1) 0%, rgba(89,89,89,1) 12%, rgba(102,102,102,1) 25%, rgba(71,71,71,1) 39%, rgba(44,44,44,1) 50%, rgba(0,0,0,1) 51%, rgba(17,17,17,1) 60%, rgba(43,43,43,1) 76%, rgba(28,28,28,1) 91%, rgba(19,19,19,1) 100%);
+    background: -o-linear-gradient(left, rgba(76,76,76,1) 0%, rgba(89,89,89,1) 12%, rgba(102,102,102,1) 25%, rgba(71,71,71,1) 39%, rgba(44,44,44,1) 50%, rgba(0,0,0,1) 51%, rgba(17,17,17,1) 60%, rgba(43,43,43,1) 76%, rgba(28,28,28,1) 91%, rgba(19,19,19,1) 100%);
+    background: -ms-linear-gradient(left, rgba(76,76,76,1) 0%, rgba(89,89,89,1) 12%, rgba(102,102,102,1) 25%, rgba(71,71,71,1) 39%, rgba(44,44,44,1) 50%, rgba(0,0,0,1) 51%, rgba(17,17,17,1) 60%, rgba(43,43,43,1) 76%, rgba(28,28,28,1) 91%, rgba(19,19,19,1) 100%);
+    background: linear-gradient(to right, rgba(76,76,76,1) 0%, rgba(89,89,89,1) 12%, rgba(102,102,102,1) 25%, rgba(71,71,71,1) 39%, rgba(44,44,44,1) 50%, rgba(0,0,0,1) 51%, rgba(17,17,17,1) 60%, rgba(43,43,43,1) 76%, rgba(28,28,28,1) 91%, rgba(19,19,19,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4c4c', endColorstr='#131313', GradientType=1 );
+
+    color:black;
+    text-align:center;
+    overflow:hidden;
+    border-radius: 25px 25px 0 0;
+}
+
+h1
+{
+    color: #fff;
+    text-shadow: 0px -1px 4px white, 0px -2px 10px orange, 0px -10px 20px red, 0px -18px 40px maroon;
+    font: 40px 'BlackJackRegular';
+}
+
+td
+{
+    font-size:20px;
+    font-weight:bold;
+}
+
+input
+{
+    background: #eee;
+    border-radius:5px;
+    border: 2px solid;
+    padding:5px;
+    font-size:20px;
+}
+
+input:focus {
+    outline: none;
+    border-color: maroon;
+    box-shadow: 0 0 10px maroon;
+}
+
+form
+{
+      margin-left: auto;
+      margin-right: auto;
+}
+
+#submitButton
+{
+    background:	#FF6666;
+    margin-top:5px;
+    width:100%;
+    color:maroon;
+    border-color: maroon;
+}
+
+#submitButton:hover
+{
+    background:	#FF4444;
+    margin-top:5px;
+    color:maroon;
+    border-color: maroon;
+}
+
+.alert-danger
+{
+    background:maroon;
+    font-size:15px;
+    color:white;
+    padding:5px;
+}
+
+.alert-success
+{
+    background:#00CCFF;
+    font-size:15px;
+    color:white;
+    padding:5px;
+}
+
+a
+{
+    color:maroon;
+    font-size:20px;
+}
+
+.centerText
+{
+    text-align:center;
+    font-size:20px;
+}

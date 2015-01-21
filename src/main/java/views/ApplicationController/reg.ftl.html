@@ -1,0 +1,63 @@
+
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Poker Registration</title>
+    <script src="/assets/js/registration.js"></script>
+    <link rel="stylesheet" type="text/css" href="/assets/css/register.css">
+
+
+</head>
+<body>
+    <div class="center">
+        <div class="headingWrapper"><h1>Register</h1></div>
+
+        <form id="form" action="/reg" method="post" onsubmit="return validateReg();">
+            <table>
+                <tr><td>Enter your username: </td></tr>
+                <tr><td><input id="username" type="text" name="username"></td></tr>
+                <tr><td>Enter your password: </td></tr>
+                <tr><td><input id="pw1" type="password" name="password" onkeyup="passwordStrength(this.value)"></td></tr>
+                <tr><td>Reenter password: </td></tr>
+                <tr><td><input id="pw2" type="password" name="repassword"></td></tr>
+                <tr><td><input id="submitButton" type="submit" value="Submit"></td></tr>
+            </table>
+        </form>
+
+        <div class="centerText">
+            <div id="passwordStregth">
+                <br><span>Password Strength:</span><span id="passwordDescription">Very weak</span>
+            </div>
+
+            <br><a href="/">Go to login</a>
+        </div>
+
+        <#if (flash.error)??>
+            <div class="alert-danger">
+                Error: ${flash.error}
+            </div>
+        </#if>
+
+        <#if (flash.success)??>
+            <div class="alert-success">
+                ${flash.success}
+            </div>
+        </#if>
+
+    </div>
+    <script type="text/javascript"src="/assets/webjars/jquery/2.1.1/jquery.js"></script>
+    <script>
+        var inputBox = $("#username");
+        var passBox1 = $("#pw1");
+        var passBox2 = $("#pw2");
+        var centerDiv = $(".center");
+        inputBox.width(centerDiv.width() * 0.7);
+        passBox1.width(inputBox.width());
+        passBox2.width(inputBox.width());
+        $("#form").width(inputBox.width());
+
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Poker</title>
+    <link rel="stylesheet" type="text/css" href="/assets/css/hand.css">
+</head>
+<body>
+
+    <h1>Welcome! </h1>
+    <p>Your hand is:</p>
+
+
+    <p> ${Eval}</p>
+
+
+
+    <#list users as user>
+        <p>${user}</p>
+    </#list>
+
+    <#assign userNum=0/>
+
+
+    <#list hands as hand>
+        <#assign cardNum=0/>
+        <#list hand as card>
+            <img class="card user${userNum} card${cardNum}" src="/assets/images/cards/${card}.png"/><div class="card">${card} user: ${userNum} cardNum:${cardNum}</div>
+            <#assign cardNum=cardNum + 1/>
+        </#list>
+        <#assign userNum = userNum + 1/>
+    </#list>
+
+    <form action="/" method="post">
+        <table>
+            <tr><td><input id="Mes" type="text" name="mes" value="logout"></td></tr>
+            <tr><td><input id="submitButton" type="submit" value="Logout"></td></tr>
+        </table>
+    </form>
+
+    <!--
+        4 tot 6 hands
+        here are 6 hands and this guy won
+        many hands mapped to one hand
+    -->
+</body>
+

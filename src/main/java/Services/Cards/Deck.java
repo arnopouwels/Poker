@@ -32,7 +32,6 @@ public class Deck
 
     public Card takeCard()
     {
-        System.out.println(deck.size() - 1);
         return deck.remove(randomIntGenerator(deck.size() - 1));
     }
 

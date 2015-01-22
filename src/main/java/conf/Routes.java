@@ -23,6 +23,8 @@ import ninja.Router;
 import ninja.application.ApplicationRoutes;
 import controllers.PlayController;
 
+import javax.security.auth.login.LoginContext;
+
 public class Routes implements ApplicationRoutes {
 
     @Override
@@ -31,9 +33,9 @@ public class Routes implements ApplicationRoutes {
         router.POST().route("/").with(ApplicationController.class, "index");
         router.GET().route("/reg").with(ApplicationController.class, "reg");
         router.POST().route("/reg").with(ApplicationController.class, "reg");
-        router.POST().route("/hand").with(PlayController.class, "index");
-        router.GET().route("/hello_world.json").with(PlayController.class, "helloWorldJson");
-        
+        router.GET().route("/loggedIn").with(PlayController.class, "index");
+        router.GET().route("/hand").with(PlayController.class, "play");
+        router.GET().route("/history").with(PlayController.class, "history");
  
         ///////////////////////////////////////////////////////////////////////
         // Assets (pictures / javascript)
@@ -44,7 +46,7 @@ public class Routes implements ApplicationRoutes {
         ///////////////////////////////////////////////////////////////////////
         // Index / Catchall shows index page
         ///////////////////////////////////////////////////////////////////////
-        router.GET().route("/.*").with(PlayController.class, "index");
+        router.GET().route("/.*").with(ApplicationController.class, "index");
     }
 
 }

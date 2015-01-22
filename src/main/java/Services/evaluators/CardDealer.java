@@ -8,13 +8,14 @@ import java.util.Random;
 
 public class CardDealer
 {
-    private static Random generatorO = new Random(System.currentTimeMillis());
-    private static Deck deck = new Deck(generatorO);
-
-
-    public static Hand dealCards()
+    public static Hand[] dealCards(Deck deck)
     {
-      return new Hand(deck.takeCard(), deck.takeCard(), deck.takeCard(), deck.takeCard(), deck.takeCard());
+        Hand[] hands = new Hand[4];
+        for(int i = 0; i < hands.length; i++)
+        {
+            hands[i] = new Hand(deck.takeCard(), deck.takeCard(), deck.takeCard(), deck.takeCard(), deck.takeCard());
+        }
+        return hands;
     }
 
 }

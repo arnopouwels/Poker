@@ -16,6 +16,7 @@
 
 package controllers;
 
+import Services.Cards.Card;
 import Services.Cards.Hand;
 import Services.PokerService;
 import com.google.inject.Inject;
@@ -27,6 +28,7 @@ import ninja.Results;
 import com.google.inject.Singleton;
 import ninja.Context;
 import filter.sercureFilter;
+import ninja.session.Session;
 
 
 @Singleton
@@ -36,86 +38,80 @@ public class PlayController {
     @Inject
     private PokerService pokerService;
 
-    @FilterWith(sercureFilter.class)
     public Result index(Context context)
+    {
+        Result result = Results.html();
+        Session session = context.getSession();
+        if(session == null) {
+            result.redirect("/");
+            return result;
+        }
+
+        String username = session.get("userN");
+        if(username == null || username.equals(""))
+        {
+            result.redirect("/");
+            return  result;
+        }
+
+        result.render("username", username);
+        return result;
+    }
+
+    public Result history(Context context)
+    {
+        Result result = Results.html();
+        Session session = context.getSession();
+        if(session == null) {
+            result.redirect("/");
+            return result;
+        }
+
+        String username = session.get("userN");
+        if(username == null || username.equals(""))
+        {
+            result.redirect("/");
+            return  result;
+        }
+
+        return result;
+    }
+
+    @FilterWith(sercureFilter.class)
+    public Result play(Context context)
     {
         Result result = Results.html();
 
         pokerService.deal();
 
-        Hand hand = pokerService.getHand();
-        result.render("c0", hand.getCardAt(0).toString());
-        result.render("c1", hand.getCardAt(1).toString());
-        result.render("c2", hand.getCardAt(2).toString());
-        result.render("c3", hand.getCardAt(3).toString());
-        result.render("c4", hand.getCardAt(4).toString());
+        Hand[] hands = pokerService.getHands();
 
-        result.render("Eval", pokerService.getEvaluatedHand());
+        String[] users = {"A", "B"};
 
-        /*String username = context.getSession().get("userN");
-        if(username != null)
-            result.render("username",context.getParameter(username));
-        else
-            result.render("username", "Not found");*/
+        String[][] handsAsStrings = new String[pokerService.getNumHands()][];
+
+        for(int i = 0; i < hands.length; i++)
+        {
+            handsAsStrings[i] = new String[5];
+            for(int j = 0; j < handsAsStrings[i].length; j++)
+                handsAsStrings[i][j] = hands[i].getCardAt(j).toString();
+        }
+
+        result.render("users", users);
+        result.render("hands", handsAsStrings);
+        result.render("evalHands", pokerService.getEvaluatedHands());
+        result.render("winnerMes", pokerService.getWinnerHandsMessages());
 
         String username = context.getSession().get("userN");
         if(username != null)
         {
-
         }
-           // result.render("username",username);
         else
             result.redirect("/");
         return result;
-        //return Results.notFound();
 
     }
-
-    /*
-    User user = new User()
-    user.setName
-    userRepository.persist(user);
-
-
-     */
-
-    //result index(context context)
-    /*
-
-     */
-
-
-
-    //maak 'n singleton UserRepository
-    //stoor 'n list van users
-
-    /*
-    //publi Result logout(Context
-        context.getSession().clera();
-        return Result.redirect()
-     */
 
     //PBKDF2 perform hashing
-    
-    public Result helloWorldJson() {
 
-        SimplePojo simplePojo = new SimplePojo();
-        simplePojo.content = "Hello World! Hello Json!";
-
-        return Results.json().render(simplePojo);
-
-    }
-
-
-
-    public void setPokerService(PokerService pokerService)
-    {
-        this.pokerService = pokerService;
-    }
-    
-    public static class SimplePojo {
-
-        public String content;
-        
-    }
 }

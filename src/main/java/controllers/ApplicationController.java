@@ -1,13 +1,17 @@
 package controllers;
 
+import Services.Cards.Hand;
+import Services.PokerService;
 import Services.Users.User;
 import Services.Users.UserRepository;
 import com.google.inject.Inject;
+import ninja.FilterWith;
 import ninja.Result;
 import ninja.Results;
 import ninja.session.Session;
 import ninja.Context;
 import ninja.session.SessionImpl;
+import filter.sercureFilter;
 
 import java.util.Map;
 import java.util.Optional;
@@ -23,7 +27,11 @@ public class ApplicationController
     {
         Result result = Results.html();
 
-
+        if(context.getSession() != null)
+        {
+            if(context.getSession().get("userN") == null)
+                context.getSession().clear();
+        }
         if(context.getParameter("username") != null)
         {
             String username = context.getParameter("username");
@@ -39,7 +47,7 @@ public class ApplicationController
                 if(password.equals(user.getPassword()))
                 {
                     context.getSession().put("userN", username);
-                    result.redirect("/hand");
+                    result.redirect("/loggedIn");
                     return result;
                 }
 
@@ -66,7 +74,6 @@ public class ApplicationController
             context.getFlashScope().error("Name already exists.");
         else
         {
-
             User user = new User(username, password);
             userRepository.persist(user);
             //userRepository.addUser(new User(username, password));
@@ -75,6 +82,8 @@ public class ApplicationController
 
         return result;
     }
+
+
 
 
 

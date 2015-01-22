@@ -6,34 +6,34 @@ import Services.Cards.Rank;
 import Services.Cards.Suit;
 
 import java.util.*;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
-public class HandEvaluator {
-    public String evaluateHand(Hand hand)
+public class HandEvaluator
+{
+    public PokerHand evaluateHand(Hand hand)
     {
-        if(isStraight_Func(hand))
-            return "Straight flush!";
+        if(isStraightFlush_Func(hand))
+            return new PokerHand(hand,PokerHandState.straightFlush);
         else if(isFourOfAKind_Imp(hand))
-            return "Four of a kind!";
+            return new PokerHand(hand,PokerHandState.fourOfAKind);
         else if(isFullHouse_imp(hand))
-            return "Full House!";
+            return new PokerHand(hand,PokerHandState.fullHouse);
         else if(isFlush_Func(hand))
-            return "Flush!";
+            return new PokerHand(hand,PokerHandState.flush);
         else if(isStraight_Imp(hand))
-            return "Straight";
+            return new PokerHand(hand,PokerHandState.straight);
         else if(is3OfAKind_imp(hand))
-            return "Three of a kind!";
+            return new PokerHand(hand,PokerHandState.threeOfAKind);
         else if(isTwoPair_imp(hand))
-            return "Two Pair!";
+            return new PokerHand(hand,PokerHandState.twoPair);
         else if(isOnePair_imp(hand))
-            return "One Pair!";
+            return new PokerHand(hand,PokerHandState.onePair);
         else
-            return "High card...";
-
-
+            return new PokerHand(hand,PokerHandState.highCard);
     }
+
+
+
 
     public static boolean isStraightFlush_Func(Hand hand) {
         List<Rank> ranks = hand.getCards().stream().map(c -> c.getRank()).collect(Collectors.toList());

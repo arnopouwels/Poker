@@ -7,8 +7,6 @@ import Services.Cards.Hand;
  */
 public interface IpokerService {
     String getName();
-    Hand getHand();
-    String getEvaluatedHand();
     void deal();
 
 

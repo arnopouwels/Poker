@@ -6,9 +6,6 @@ import com.google.inject.persist.Transactional;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 
-/**
- * Created by Zuhnja on 2015-01-20.
- */
 public class BaseRepository<T>
 {
     @Inject
@@ -24,8 +21,5 @@ public class BaseRepository<T>
     {
         return entityManagerProvider.get();
     }
-
-    //List query.geResultList()
-       // if(resu)
 
 }

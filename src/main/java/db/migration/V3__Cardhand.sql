@@ -1,5 +1,6 @@
 CREATE TABLE cardhand (
-    id INT NOT NULL AUTO_INCREMENT,
-    name VARCHAR(255) NOT NULL,
+    id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    winnerstate VARCHAR(255) NOT NULL,
     hand VARCHAR(255) NOT NULL,
-    PRIMARY KEY (id));
+    game_id BIGINT,
+    user_name VARCHAR(12));

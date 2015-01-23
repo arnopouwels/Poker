@@ -10,11 +10,25 @@ import java.util.Optional;
 @Singleton
 public class HandRepository extends BaseRepository<Cardhand>
 {
-    @UnitOfWork
-    public Optional<Cardhand> findGameByName(String name)
+    /*@UnitOfWork
+    public List<Cardhand> findHandByName(String name)
     {
-        Query query = getEntityManager().createQuery("SELECT u FROM Cardhand u WHERE u.name = :name").setParameter("name",name);
-        return getSingleResult(query);
+        Query query = getEntityManager().createQuery("SELECT u FROM Cardhand u WHERE u.user_name = :name").setParameter("name",name);
+        return null;
+    }*/
+
+    @UnitOfWork
+    public List<Cardhand> findHandByName(User user)
+    {
+        Query query = getEntityManager().createQuery("SELECT u FROM Cardhand u WHERE u.user = :user").setParameter("user",user);
+        return query.getResultList();
+    }
+
+    @UnitOfWork
+    public List<Cardhand> findHandByGame(Game game)
+    {
+        Query query = getEntityManager().createQuery("SELECT u FROM Cardhand u WHERE u.game = :game").setParameter("game",game);
+        return query.getResultList();
     }
 
     private Optional<Cardhand> getSingleResult(Query query)

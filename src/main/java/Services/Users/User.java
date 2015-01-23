@@ -2,9 +2,12 @@ package Services.Users;
 
 import Services.Cards.Hand;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.Size;
 import javax.persistence.Id;
+import java.util.List;
 
 @Entity
 public class User
@@ -14,12 +17,18 @@ public class User
     private String name;
     private String password;
     private String salt = "";
-    private String hand = "";
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    private List<Cardhand> cardHand;
 
     public User()
     {
     }
 
+    public List<Cardhand> getCardHand()
+    {
+        return cardHand;
+    }
     public User(String userN, String passW)
     {
         this.name = userN;
@@ -37,8 +46,6 @@ public class User
     {
         return salt;
     }
-
-    public String getHand() { return hand; }
 
     public void setUsername(String username)
     {

@@ -17,19 +17,22 @@
 package conf;
 
 import Services.PokerService;
+import Services.Users.GameRepository;
+import Services.Users.HandRepository;
 import Services.Users.UserRepository;
 import com.google.inject.AbstractModule;
 import com.google.inject.Singleton;
 
 @Singleton
-public class Module extends AbstractModule {
-    
-
+public class Module extends AbstractModule
+{
     protected void configure() {
         
         // bind your injections here!
         bind(PokerService.class);
         bind(UserRepository.class);
+        bind(HandRepository.class);
+        bind(GameRepository.class);
     }
 
 }

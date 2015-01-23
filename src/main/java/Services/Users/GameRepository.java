@@ -1,7 +1,7 @@
 package Services.Users;
+import com.google.inject.Singleton;
 
-/**
- * Created by Zuhnja on 2015-01-22.
- */
-public class GameRepository {
+
+@Singleton
+public class GameRepository extends BaseRepository<Game>{
 }

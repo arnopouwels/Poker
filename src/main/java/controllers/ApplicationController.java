@@ -1,19 +1,11 @@
 package controllers;
 
-import Services.Cards.Hand;
-import Services.PokerService;
-import Services.Users.User;
-import Services.Users.UserRepository;
+import Services.Users.*;
 import com.google.inject.Inject;
-import ninja.FilterWith;
 import ninja.Result;
 import ninja.Results;
-import ninja.session.Session;
 import ninja.Context;
-import ninja.session.SessionImpl;
-import filter.sercureFilter;
 
-import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -23,6 +15,13 @@ public class ApplicationController
 {
     @Inject
     private UserRepository userRepository;
+
+    @Inject
+    private HandRepository handRepository;
+
+    @Inject
+    private GameRepository gameRepository;
+
     public Result index(Context context)
     {
         Result result = Results.html();
@@ -76,8 +75,7 @@ public class ApplicationController
         {
             User user = new User(username, password);
             userRepository.persist(user);
-            //userRepository.addUser(new User(username, password));
-            context.getFlashScope().success(username + " 's acount has been successfully created." );
+            context.getFlashScope().success(username + " 's acount has been successfully created.");
         }
 
         return result;

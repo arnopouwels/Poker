@@ -16,9 +16,9 @@
 
 package controllers;
 
-import Services.Cards.Card;
 import Services.Cards.Hand;
 import Services.PokerService;
+import Services.Users.*;
 import com.google.inject.Inject;
 import ninja.FilterWith;
 import ninja.Result;
@@ -30,6 +30,10 @@ import ninja.Context;
 import filter.sercureFilter;
 import ninja.session.Session;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Optional;
+
 
 @Singleton
 //filterWith
@@ -37,6 +41,15 @@ public class PlayController {
 
     @Inject
     private PokerService pokerService;
+
+    @Inject
+    private HandRepository handRepository;
+
+    @Inject
+    private UserRepository userRepository;
+
+    @Inject
+    private GameRepository gameRepository;
 
     public Result index(Context context)
     {
@@ -74,8 +87,48 @@ public class PlayController {
             return  result;
         }
 
+        Optional<User> opUser = userRepository.findUserByName(username);
+        User user = null;
+        if(opUser.isPresent())
+            user = opUser.get();
+
+        HashMap<Game, List<Cardhand>> map = null;
+        if(user != null)
+        {
+            //kry al die hands van ingelogde user
+            List<Cardhand> cardhandList = handRepository.findHandByName(user);
+            System.out.println(cardhandList.get(0).getHand());
+
+            //kry al die hands in 'n groep waarin die elke hand van die user is
+            map = getMapOfHandsPerGame_fromHands(cardhandList);
+        }
+        if(map != null)
+        {
+            outputMap(map);
+        }
         return result;
     }
+
+    private void outputMap(HashMap<Game, List<Cardhand>> map)
+    {
+
+    }
+
+    private HashMap<Game, List<Cardhand>> getMapOfHandsPerGame_fromHands(List<Cardhand> cardhandList)
+    {
+        HashMap<Game, List<Cardhand>> map = new HashMap<Game, List<Cardhand>>();
+
+        for(int i = 0; i < cardhandList.size(); i++)
+        {
+            Game game = cardhandList.get(i).getGame();
+            List<Cardhand> cardhandsListTemp = handRepository.findHandByGame(game);
+            map.put(game, cardhandsListTemp);
+        }
+
+        return map;
+    }
+
+
 
     @FilterWith(sercureFilter.class)
     public Result play(Context context)
@@ -86,8 +139,6 @@ public class PlayController {
 
         Hand[] hands = pokerService.getHands();
 
-        String[] users = {"A", "B"};
-
         String[][] handsAsStrings = new String[pokerService.getNumHands()][];
 
         for(int i = 0; i < hands.length; i++)
@@ -97,17 +148,32 @@ public class PlayController {
                 handsAsStrings[i][j] = hands[i].getCardAt(j).toString();
         }
 
-        result.render("users", users);
+        String[] winStates = pokerService.getWinnerHandsMessages();
         result.render("hands", handsAsStrings);
         result.render("evalHands", pokerService.getEvaluatedHands());
-        result.render("winnerMes", pokerService.getWinnerHandsMessages());
+        result.render("winnerMes", winStates);
 
         String username = context.getSession().get("userN");
-        if(username != null)
+        Optional<User> opUser = userRepository.findUserByName(username);
+        User user = null;
+        if(opUser.isPresent())
+            user = opUser.get();
+
+        if(user != null)
         {
+            Game game = new Game();
+            gameRepository.persist(game);
+            for(int i = 0; i < hands.length; i++)
+            {
+                Cardhand ch = new Cardhand();
+                ch.setHand(hands[i].toString());
+                ch.setWinnerstate(winStates[i]);
+                ch.setGame(game);
+                if(i == 0)
+                    ch.setUser(user);
+                handRepository.persist(ch);
+            }
         }
-        else
-            result.redirect("/");
         return result;
 
     }

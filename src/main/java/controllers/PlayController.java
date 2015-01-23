@@ -17,6 +17,8 @@
 package controllers;
 
 import Services.Cards.Hand;
+import Services.Cards.Rank;
+import Services.Cards.Suit;
 import Services.PokerService;
 import Services.Users.*;
 import com.google.inject.Inject;
@@ -97,21 +99,21 @@ public class PlayController {
         {
             //kry al die hands van ingelogde user
             List<Cardhand> cardhandList = handRepository.findHandByName(user);
-            System.out.println(cardhandList.get(0).getHand());
+           //System.out.println(cardhandList.get(0).getHand());
 
             //kry al die hands in 'n groep waarin die elke hand van die user is
-            map = getMapOfHandsPerGame_fromHands(cardhandList);
-        }
-        if(map != null)
-        {
-            outputMap(map);
+            //map = getMapOfHandsPerGame_fromHands(cardhandList);
         }
         return result;
     }
 
     private void outputMap(HashMap<Game, List<Cardhand>> map)
     {
+        Object[] key = map.keySet().toArray();
 
+        List<Cardhand> list = (List<Cardhand>) map.get((Game) key[0]);
+        for(int a = 0; a < list.size(); a++)
+            System.out.println(((Cardhand) list.get(a)).getHand());
     }
 
     private HashMap<Game, List<Cardhand>> getMapOfHandsPerGame_fromHands(List<Cardhand> cardhandList)

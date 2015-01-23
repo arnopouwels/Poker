@@ -1,8 +1,10 @@
 package Services.Cards;
 
+import javax.persistence.*;
 import java.util.*;
 
 public class Hand {
+
     private ArrayList<Card> cards = new ArrayList<Card>();
 
     public Hand(String c1, String c2, String c3, String c4, String c5)

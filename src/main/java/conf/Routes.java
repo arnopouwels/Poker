@@ -18,7 +18,9 @@ package conf;
 
 
 import controllers.ApplicationController;
+import controllers.AsyncController;
 import ninja.AssetsController;
+import ninja.Results;
 import ninja.Router;
 import ninja.application.ApplicationRoutes;
 import controllers.PlayController;
@@ -38,6 +40,10 @@ public class Routes implements ApplicationRoutes {
         router.GET().route("/LoggedIn/hosted").with(PlayController.class, "hostedSpec");
         router.GET().route("/LoggedIn/hosted/{hostNum}").with(PlayController.class, "hosted");
         router.GET().route("/LoggedIn/joinGame/{hostName}").with(PlayController.class, "join");
+
+        //router.GET().route("/test").with(AsyncController.class, "joinpart");
+        router.GET().route("/test").with(AsyncController.class, "hostedgames");
+
 
         router.GET().route("/game").with(PlayController.class, "game");
         router.GET().route("/hand").with(PlayController.class, "play");

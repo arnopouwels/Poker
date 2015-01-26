@@ -9,8 +9,15 @@ body
     color:white;
 }
 
+#getDataButton
+{
+    position:absolute;
+    top:5px;
+    right:5px;
+}
 
-#availableGamesDiv
+
+#container
 {
     margin:10px;
     height:180px;

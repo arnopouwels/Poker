@@ -65,9 +65,9 @@ public class PlayController
         String username = context.getSession().get("userN");
         result.render("username", username);
 
-        List<Host> hostList = hostRepository.findAllHosts();
+       /* List<Host> hostList = hostRepository.findAllHosts();
         String[] hostStrings = hostAsStrings(hostList);
-        result.render("hosts", hostStrings);
+        result.render("hosts", hostStrings);*/
 
         return result;
     }

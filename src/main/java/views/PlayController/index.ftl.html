@@ -14,7 +14,14 @@
 
         <div id="hostButtonWrapper"><button id="hostButton" onclick="host()">Host Game</button></div>
 
-        <#include "hostedgames.ftl.html"/>
+        <!--#include "../AsyncController/joinpart.ftl.html"/-->
+        <h2>Available games:</h2>
+        <div id="container">
+
+        </div>
+        <button id="getDataButton" onclick="getData()">Get Data</button>
+
+        <!--#include "hostedgames.ftl.html"/-->
 
         <div id="bottomWrapper">
             <div class="bottom">
@@ -31,6 +38,14 @@
     bottomButtons.height($("#bottomWrapper").height()/2 * 0.95);
     $("#hostButton").height(bottomButtons.height());
 
+    function getData()
+    {
+        $.get("/test", function(data){
+            $("#container").html(data);
+            alert("Load was performed.");
+        })
+    }
+
     function host()
     {
         window.location="/LoggedIn/hosted";
@@ -45,7 +60,6 @@
     {
         window.location="/";
     }
-
 
 
     $(".joinButton").click(function()

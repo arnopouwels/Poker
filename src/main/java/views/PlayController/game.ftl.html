@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Poker</title>
+    <link rel="stylesheet" type="text/css" href="/assets/css/game.css">
+
+    <script>
+        function logout()
+        {
+            window.location = "/";
+        }
+
+        function play()
+        {
+            window.location="/hand";
+        }
+
+        function history()
+        {
+            window.location="history";
+        }
+    </script>
+</head>
+<body>
+    <div class="center">
+        <div id="heading"><h1>Welcome, player ${username}!</h1></div>
+        <div id="options">
+            <button class="options" onclick="play()">Play</button>
+            <button class="options" onclick="history()">History</button>
+
+        </div>
+    </div>
+    <button id="logoutButton" onclick="logout()">Logout</button>
+    <script type="text/javascript"src="/assets/webjars/jquery/2.1.1/jquery.js"></script>
+    <script type="text/javascript" src="/assets/webjars/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+</body>
+</html>

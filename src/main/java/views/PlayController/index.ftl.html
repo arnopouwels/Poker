@@ -4,34 +4,44 @@
     <meta charset="UTF-8">
     <title>Poker</title>
     <link rel="stylesheet" type="text/css" href="/assets/css/loggedIn.css">
-
-    <script>
-        function logout()
-        {
-            window.location = "/";
-        }
-
-        function play()
-        {
-            window.location="/hand";
-        }
-
-        function history()
-        {
-            window.location="history";
-        }
-    </script>
 </head>
 <body>
     <div class="center">
-        <div id="heading"><h1>Welcome, player ${username}!</h1></div>
-        <div id="options">
-            <button class="options" onclick="play()">Play</button>
-            <button class="options" onclick="history()">History</button>
 
+
+        <div class="headingWrapper">
+            <div class="heading"><h1>Welcome ${username}!</h1></div>
+        </div>
+
+
+        <div id="hostButtonWrapper"><button id="hostButton" onclick="host()">Host Game</button></div>
+
+        <h2>Available games:</h2>
+        <div id="availableGamesDiv">
+            <#list hosts as host>
+                <p>${host}</p>
+            </#list>
+        </div>
+
+        <div id="bottomWrapper">
+            <div class="bottom">
+                <button class="bottomButton">History</button>
+                <button class="bottomButton">Logout</button>
+            </div>
         </div>
     </div>
-    <button id="logoutButton" onclick="logout()">Logout</button>
 
 </body>
+<script type="text/javascript"src="/assets/webjars/jquery/2.1.1/jquery.js"></script>
+<script>
+    var bottomButtons = $(".bottomButton");
+    bottomButtons.height($("#bottomWrapper").height()/2 * 0.95);
+    $("#hostButton").height(bottomButtons.height());
+
+    function host()
+    {
+        window.location="/LoggedIn/hosted";
+    }
+</script>
+
 </html>

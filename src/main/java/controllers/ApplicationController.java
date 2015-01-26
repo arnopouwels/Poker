@@ -46,7 +46,7 @@ public class ApplicationController
                 if(password.equals(user.getPassword()))
                 {
                     context.getSession().put("userN", username);
-                    result.redirect("/loggedIn");
+                    result.redirect("/LoggedIn");
                     return result;
                 }
 

@@ -30,6 +30,7 @@ import ninja.Results;
 import com.google.inject.Singleton;
 import ninja.Context;
 import filter.sercureFilter;
+import ninja.params.PathParam;
 import ninja.session.Session;
 
 import java.util.HashMap;
@@ -39,8 +40,8 @@ import java.util.Optional;
 
 @Singleton
 //filterWith
-public class PlayController {
-
+public class PlayController
+{
     @Inject
     private PokerService pokerService;
 
@@ -53,11 +54,70 @@ public class PlayController {
     @Inject
     private GameRepository gameRepository;
 
+    @Inject
+    private HostRepository hostRepository;
+
     public Result index(Context context)
     {
         Result result = Results.html();
+        String username = context.getSession().get("userN");
+        result.render("username", username);
+
+        List<Host> hostList = hostRepository.findAllHosts();
+        String[] hostStrings = hostAsStrings(hostList);
+        result.render("hosts", hostStrings);
+
+        return result;
+    }
+
+    public Result hostedSpec(Context context)
+    {
+        Result result = Results.html();
+        String username = context.getSession().get("userN");
+        Optional<User> opUser = userRepository.findUserByName(username);
+        User user = null;
+        if(opUser.isPresent())
+            user = opUser.get();
+
+        if(user != null)
+        {
+            Host host = new Host();
+            host.setUser(user);
+
+            hostRepository.persist(host);
+            String pathParameter = host.getId() + "";
+            result.redirect("/LoggedIn/hosted/"+pathParameter);
+        }
+
+        return result;
+    }
+
+    private String[] hostAsStrings(List<Host> hosts)
+    {
+        int size = hosts.size();
+        String[] temp = new String[size];
+
+        for(int i = 0; i < size; i++)
+            temp[i] = hosts.get(i).getUser().getName();
+        return temp;
+    }
+
+    public Result hosted(Context context, @PathParam("hostNum") String hostNum)
+    {
+        Result result = Results.html();
+
+
+        result.render("id",hostNum);
+
+        return result;
+    }
+
+    public Result game(Context context)
+    {
+        Result result = Results.html();
         Session session = context.getSession();
-        if(session == null) {
+        if(session == null)
+        {
             result.redirect("/");
             return result;
         }

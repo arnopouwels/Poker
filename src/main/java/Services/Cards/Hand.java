@@ -7,7 +7,18 @@ public class Hand {
 
     private ArrayList<Card> cards = new ArrayList<Card>();
 
-    public Hand(String c1, String c2, String c3, String c4, String c5)
+    private String cardOne = "";
+    private String cardTwo = "";
+    private String cardThree = "";
+    private String cardFour = "";
+    private String cardFive = "";
+
+    public Hand()
+    {
+
+    }
+
+    public void makeHand(String c1, String c2, String c3, String c4, String c5)
     {
         //public Hand(... cardReprese)
         Card card1 = new Card(c1);

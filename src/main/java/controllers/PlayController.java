@@ -108,9 +108,29 @@ public class PlayController
     {
         Result result = Results.html();
 
-
         result.render("id",hostNum);
 
+        //get hostUser
+        String username = context.getSession().get("userN");
+        User hostUser = getUserByName(username);
+        if(hostUser == null)
+            return result;
+
+        //getHost
+        List<Host> hostList = hostRepository.findHostByName(hostUser);
+        if(hostList == null || hostList.size() == 0)
+            return result;
+        Host host = hostList.get(0);
+
+        //get all players with hostUser as id
+        String[] playerNames = playerRepository.findPlayerNamesOfHost(host);
+        if(playerNames == null || playerNames.length == 0)
+        {
+            result.render("playerNames", playerNames);
+            return result;
+        }
+
+        result.render("playerNames", playerNames);
         return result;
     }
 

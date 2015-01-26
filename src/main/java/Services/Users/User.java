@@ -18,6 +18,9 @@ public class User
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private List<Cardhand> cardHand;
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    private List<Player> player;
+
     @OneToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL, mappedBy = "user")
     private List<Host> host;
 

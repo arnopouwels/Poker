@@ -57,6 +57,8 @@ public class PlayController
     @Inject
     private HostRepository hostRepository;
 
+    @Inject PlayerRepository playerRepository;
+
     public Result index(Context context)
     {
         Result result = Results.html();
@@ -111,6 +113,50 @@ public class PlayController
 
         return result;
     }
+
+    public Result join(Context context, @PathParam("hostName") String hostName)
+    {
+        Result result = Results.html();
+
+        //get user met name hostname
+        User hostUser = getUserByName(hostName);
+        if(hostUser == null)
+            return result;
+
+        //getHosted id met username
+        List<Host> hostList = hostRepository.findHostByName(hostUser);
+        if(hostList == null || hostList.size() == 0)
+            return result;
+        Host host = hostList.get(0);
+
+        //get the playerName
+        String username = context.getSession().get("userN");
+        User playerUser = getUserByName(username);
+        if(playerUser == null)
+            return result;
+
+        //create player
+        Player player = new Player();
+        player.setHost(host);
+        player.setUser(playerUser);
+        playerRepository.persist(player);
+
+       // String pathParameter = host.getId() + "";
+        //result.redirect("/LoggedIn/hosted/"+pathParameter);
+        return result;
+    }
+
+    private User getUserByName(String username)
+    {
+        Optional<User> opUser = userRepository.findUserByName(username);
+        User user = null;
+        if(opUser.isPresent())
+            user = opUser.get();
+        return user;
+    }
+
+
+
 
     public Result game(Context context)
     {

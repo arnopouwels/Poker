@@ -17,9 +17,7 @@
 package conf;
 
 import Services.PokerService;
-import Services.Users.GameRepository;
-import Services.Users.HandRepository;
-import Services.Users.UserRepository;
+import Services.Users.*;
 import com.google.inject.AbstractModule;
 import com.google.inject.Singleton;
 
@@ -33,6 +31,8 @@ public class Module extends AbstractModule
         bind(UserRepository.class);
         bind(HandRepository.class);
         bind(GameRepository.class);
+        bind(HostRepository.class);
+        bind(PlayerRepository.class);
     }
 
 }

@@ -1,0 +1,4 @@
+CREATE TABLE player(
+    id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    host_id BIGINT,
+    user_name VARCHAR(12));

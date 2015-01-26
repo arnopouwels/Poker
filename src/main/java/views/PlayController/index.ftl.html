@@ -18,9 +18,16 @@
 
         <h2>Available games:</h2>
         <div id="availableGamesDiv">
-            <#list hosts as host>
-                <p>${host}</p>
-            </#list>
+            <#assign c=0/>
+            <table>
+                <#list hosts as host>
+                    <tr>
+                        <td><p class="${c}">${host}</p></td>
+                        <td><button class="${c} joinButton" >Join</button></td>
+                        <#assign c=c + 1/>
+                    </tr>
+                </#list>
+            </table>
         </div>
 
         <div id="bottomWrapper">
@@ -42,6 +49,14 @@
     {
         window.location="/LoggedIn/hosted";
     }
+
+    $(".joinButton").click(function()
+    {
+        var class_name = this.className[0];
+        var hostName = $("p." + class_name).text();
+        window.location="/LoggedIn/joinGame/" + hostName;
+    });
+
 </script>
 
 </html>

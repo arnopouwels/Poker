@@ -1,23 +1,23 @@
 package Services.Users;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
-public class Host
+public class Player
 {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
-    private List<Player> player;
+    @ManyToOne
+    private Host host;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne
     private User user;
 
-    public Host() {
-        this.id = id;
+    public Long getId()
+    {
+        return id;
     }
 
     public User getUser()
@@ -30,9 +30,14 @@ public class Host
         this.user = user;
     }
 
-    public Long getId()
+    public void setHost(Host host)
     {
-        return id;
+        this.host = host;
+    }
+
+    public Host getHost()
+    {
+        return host;
     }
 
 }

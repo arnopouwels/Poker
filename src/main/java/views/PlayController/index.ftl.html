@@ -14,24 +14,12 @@
 
         <div id="hostButtonWrapper"><button id="hostButton" onclick="host()">Host Game</button></div>
 
-        <h2>Available games:</h2>
-        <div id="availableGamesDiv">
-            <#assign c=0/>
-            <table>
-                <#list hosts as host>
-                    <tr>
-                        <td><p class="${c}">${host}</p></td>
-                        <td><button class="${c} joinButton" >Join</button></td>
-                        <#assign c=c + 1/>
-                    </tr>
-                </#list>
-            </table>
-        </div>
+        <#include "hostedgames.ftl.html"/>
 
         <div id="bottomWrapper">
             <div class="bottom">
-                <button class="bottomButton">History</button>
-                <button class="bottomButton">Logout</button>
+                <button class="bottomButton" onclick="history()">History</button>
+                <button class="bottomButton" onclick="logout()">Logout</button>
             </div>
         </div>
     </div>
@@ -47,6 +35,18 @@
     {
         window.location="/LoggedIn/hosted";
     }
+
+    function history()
+    {
+        window.location="/history";
+    }
+
+    function logout()
+    {
+        window.location="/";
+    }
+
+
 
     $(".joinButton").click(function()
     {

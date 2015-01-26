@@ -1,0 +1,13 @@
+<h2>Available games:</h2>
+<div id="availableGamesDiv">
+    <#assign c=0/>
+    <table>
+        <#list hosts as host>
+            <tr>
+                <td><p class="${c}">${host}</p></td>
+                <td><button class="${c} joinButton" >Join</button></td>
+                <#assign c=c + 1/>
+            </tr>
+        </#list>
+    </table>
+</div>

@@ -3,14 +3,23 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title></title>
+    <link rel="stylesheet" type="text/css" href="/assets/css/hosted.css">
 </head>
 <body>
     <h3>Waiting for players to join game...</h3>
     <h2>${id}</h2>
     <#list playerNames as player>
-        <p>Player ${player}, joined game and is ready to play.</p>
+        <p class="players">Player ${player}, joined game and is ready to play.</p>
     </#list>
     <p>(Maximum of 6 players per game.)</p>
+    <button id="startGame" disabled>Start game.</button>
+
 
 </body>
+<script type="text/javascript"src="/assets/webjars/jquery/2.1.1/jquery.js"></script>
+<script>
+    var count = $(".players").length;
+    if(count > 0)
+        $("#startGame").removeAttr('disabled');
+</script>
 </html>

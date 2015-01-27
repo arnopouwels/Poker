@@ -33,6 +33,7 @@ public class Module extends AbstractModule
         bind(GameRepository.class);
         bind(HostRepository.class);
         bind(PlayerRepository.class);
+
     }
 
 }

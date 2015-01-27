@@ -33,9 +33,11 @@ import filter.sercureFilter;
 import ninja.params.PathParam;
 import ninja.session.Session;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.ConcurrentHashMap;
 
 
 @Singleton
@@ -59,16 +61,25 @@ public class PlayController
 
     @Inject PlayerRepository playerRepository;
 
+    private volatile Boolean changeTrigger = true;
+    private volatile ConcurrentHashMap<Integer, Integer> map;
+
     public Result index(Context context)
     {
         Result result = Results.html();
         String username = context.getSession().get("userN");
         result.render("username", username);
 
-       /* List<Host> hostList = hostRepository.findAllHosts();
-        String[] hostStrings = hostAsStrings(hostList);
-        result.render("hosts", hostStrings);*/
+        //get user
+        Optional<User> opUser = userRepository.findUserByName(username);
+        User user = null;
+        if(opUser.isPresent())
+            user = opUser.get();
 
+        //get lists of host that do not contain user
+        List<Host> hostList = hostRepository.findAllHostsWithout(user);
+        String[] hostStrings = hostAsStrings(hostList);
+        result.render("hosts", hostStrings);
         return result;
     }
 
@@ -83,14 +94,41 @@ public class PlayController
 
         if(user != null)
         {
+            //kyk of al in databasis is
+            List<Host> hostList = hostRepository.findHostByName(user);
+            if(hostList.size() != 0)
+                return result.redirect("/LoggedIn");
+
+            //add new host to database if host does not already exists
             Host host = new Host();
             host.setUser(user);
-
             hostRepository.persist(host);
+            updateChange();
             String pathParameter = host.getId() + "";
             result.redirect("/LoggedIn/hosted/"+pathParameter);
         }
 
+        return result;
+    }
+
+    private synchronized void updateChange()
+    {
+        changeTrigger = !changeTrigger;
+    }
+
+    public Result hostedgames(Context context) throws InterruptedException
+    {
+        Result result = Results.html();
+        boolean change=changeTrigger.booleanValue();
+
+        while(change == changeTrigger.booleanValue())
+        {
+            Thread.sleep(100);
+        }
+
+        List<Host> hostList = hostRepository.findAllHosts();
+        String[] hostStrings = hostAsStrings(hostList);
+        result.render("hosts", hostStrings);
         return result;
     }
 
@@ -136,6 +174,7 @@ public class PlayController
 
     public Result join(Context context, @PathParam("hostName") String hostName)
     {
+        System.out.println("Word geroep!");
         Result result = Results.html();
 
         //get user met name hostname

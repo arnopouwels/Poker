@@ -17,11 +17,10 @@
         <!--#include "../AsyncController/joinpart.ftl.html"/-->
         <h2>Available games:</h2>
         <div id="container">
-
+            <#include "hostedgames.ftl.html"/>
         </div>
-        <button id="getDataButton" onclick="getData()">Get Data</button>
 
-        <!--#include "hostedgames.ftl.html"/-->
+
 
         <div id="bottomWrapper">
             <div class="bottom">
@@ -38,12 +37,26 @@
     bottomButtons.height($("#bottomWrapper").height()/2 * 0.95);
     $("#hostButton").height(bottomButtons.height());
 
+     $(".joinButton").click(function()
+    {
+        var class_name = this.className[0];
+        var hostName = $("p." + class_name).text();
+        window.location="/LoggedIn/joinGame/" + hostName;
+    });
+
+    $(document).ready(function()
+    {
+      // getData();
+    });
+
     function getData()
     {
-        $.get("/test", function(data){
+        $.get("/test", function(data)
+        {
             $("#container").html(data);
-            alert("Load was performed.");
-        })
+        });
+
+        getData();
     }
 
     function host()
@@ -60,14 +73,6 @@
     {
         window.location="/";
     }
-
-
-    $(".joinButton").click(function()
-    {
-        var class_name = this.className[0];
-        var hostName = $("p." + class_name).text();
-        window.location="/LoggedIn/joinGame/" + hostName;
-    });
 
 </script>
 

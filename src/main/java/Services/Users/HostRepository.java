@@ -18,6 +18,13 @@ public class HostRepository extends BaseRepository<Host>
     }
 
     @UnitOfWork
+    public List<Host> findAllHostsWithout(User user)
+    {
+        Query query = getEntityManager().createQuery("SELECT h FROM Host h WHERE h.user != :user").setParameter("user",user);
+        return query.getResultList();
+    }
+
+    @UnitOfWork
     public List<Host> findAllHosts()
     {
         Query query = getEntityManager().createQuery("SELECT h FROM Host h");

@@ -7,15 +7,14 @@
 </head>
 <body>
     <h3>Waiting for players to join game...</h3>
-    <h2>${id}</h2>
+    <!--h2>Id of hosted game: ${id}</h2-->
     <#list playerNames as player>
         <p class="players">Player ${player}, joined game and is ready to play.</p>
     </#list>
     <p>(Maximum of 6 players per game.)</p>
     <button id="startGame" disabled onclick="startGame()">Start game.</button>
-
-
 </body>
+
 <script type="text/javascript"src="/assets/webjars/jquery/2.1.1/jquery.js"></script>
 <script>
     var count = $(".players").length;

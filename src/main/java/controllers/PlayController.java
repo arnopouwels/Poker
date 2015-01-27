@@ -174,7 +174,6 @@ public class PlayController
 
     public Result join(Context context, @PathParam("hostName") String hostName)
     {
-        System.out.println("Word geroep!");
         Result result = Results.html();
 
         //get user met name hostname
@@ -198,10 +197,10 @@ public class PlayController
         Player player = new Player();
         player.setHost(host);
         player.setUser(playerUser);
-        playerRepository.persist(player);
 
-       // String pathParameter = host.getId() + "";
-        //result.redirect("/LoggedIn/hosted/"+pathParameter);
+        if(!playerRepository.doesPlayerExist(player))
+            playerRepository.persist(player);
+
         return result;
     }
 
